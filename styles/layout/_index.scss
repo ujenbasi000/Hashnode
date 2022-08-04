@@ -1,0 +1,115 @@
+@tailwind components;
+
+@layer components {
+  .btn-normal {
+    @apply px-6 
+    py-3
+    rounded-full
+    font-medium
+    text-base
+    flex 
+    items-center
+    justify-center 
+    gap-2
+    border 
+    w-80
+    cursor-pointer
+    dark:text-grayWhite
+    text-paragraphDarkColor
+    dark:bg-secondaryBackground
+    border-borderLightColor
+    dark:border-borderDarkColor
+    hover:bg-gray-300;
+  }
+
+  .btn-icon {
+    @apply rounded-full 
+    cursor-pointer
+    hover:bg-gray-800;
+  }
+
+  .btn-icon-nonHoverable {
+    @apply rounded-full 
+    cursor-pointer;
+  }
+
+  .btn-icon-dark {
+    @apply rounded-full 
+    cursor-pointer
+    text-white
+    hover:bg-gray-700;
+  }
+
+  .btn-primary {
+    @apply w-full
+    px-4
+    py-2
+    font-medium
+    border
+    text-center
+    cursor-pointer
+    rounded-md 
+    border-gray-300
+    text-blue-600
+    hover:bg-gray-400;
+  }
+
+  .btn-tab {
+    @apply px-5
+    py-2 
+    flex
+    gap-2
+    justify-center
+    items-center
+    cursor-pointer
+    text-paragraphLightColor
+    dark:text-paragraphDarkColor
+    hover:dark:bg-borderDarkColor
+    hover:bg-btnHover
+    rounded-md;
+  }
+
+  .btn-link {
+    @apply text-blueColor
+    font-semibold
+    px-6
+    py-2
+    rounded-full
+    transition
+    duration-200
+    hover:dark:bg-borderDarkColor
+    hover:bg-borderLightColor;
+  }
+
+  .btn-write {
+    @apply px-4
+    py-2
+    font-medium
+    text-center
+    rounded-md 
+    text-white
+    flex
+    text-base
+    w-fit
+    items-center
+    justify-center
+    gap-3
+    bg-blueColor
+    hover:bg-buttonHover;
+  }
+
+  .btn-explore {
+    @apply px-3 py-[5px] border border-borderLightColor dark:border-borderDarkColor dark:bg-secondaryBackground rounded-md font-medium text-sm bg-btnHover text-gray-700 dark:text-gray-200;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-2 border border-borderLightColor dark:border-borderDarkColor text-paragraphLightColor dark:text-paragraphDarkColor rounded-md text-lg hover:dark:bg-slate-800;
+  }
+  .btn-publish {
+    @apply px-6 py-4 border border-borderLightColor dark:border-borderDarkColor text-paragraphLightColor dark:text-paragraphDarkColor rounded-md text-lg hover:dark:bg-slate-800;
+  }
+
+  .btn-tag {
+    @apply border border-borderLightColor dark:border-borderDarkColor px-3 py-1 text-base rounded-md font-medium block text-black dark:text-white;
+  }
+}

@@ -1,0 +1,42 @@
+module.exports = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./src/components/**/*.{js,ts,jsx,tsx}",
+  ],
+  darkMode: "class",
+  theme: {
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
+    extend: {
+      colors: {
+        grayWhite: "#fafbff",
+        primaryColor: "#00bcd4",
+        mainBackground: "#000000",
+        primaryBackground: "#111827",
+        yellowColor: "#fbbf24",
+        white: "#ffffff",
+        paragraphDarkColor: "#9ca3af",
+        paragraphLightColor: "#505050",
+        blueColor: "#3466f6",
+        borderDarkColor: "#374151",
+        borderLightColor: "#dcdcdc",
+        secondaryBackground: "#1f2937",
+        btnBackground: "#111827",
+        redColor: "#ef4444",
+        buttonHover: "#0e47ed",
+        darkYellow: "#f59e0b",
+        grayColor: "#e5e7eb1a",
+        greenColor: "#10b981",
+        lightGreenColor: "#10b981",
+        btnHover: "#e5e7eb",
+        cardHover: "#182032",
+      },
+    },
+  },
+  plugins: [],
+};
