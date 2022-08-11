@@ -113,7 +113,7 @@ const Header = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <Link href="/chat">
+          <Link href="/chats">
             <button className="px-2 py-1 rounded-full hover:bg-gray-200 hover:dark:bg-gray-700 hidden sm:block">
               <i className="uil uil-facebook-messenger text-2xl text-gray-600 dark:text-gray-200" />
             </button>

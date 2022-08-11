@@ -362,6 +362,7 @@ const GET_USER_STATUS = gql`
         username
         skills
         createdAt
+        tagline
         profile_photo {
           url
         }
@@ -383,6 +384,7 @@ const getUserByUsername = gql`
         following
         name
         username
+        tagline
         createdAt
         skills
         profile_photo {
@@ -515,6 +517,23 @@ const LIKE_POST = gql`
   }
 `;
 
+const GET_ALL_MESSAGES = gql`
+  query GET_ALL_MESSAGES($input: LimitInput!) {
+    getAllMessages(input: $input) {
+      _id
+      content
+      createdAt
+      user {
+        username
+        name
+        profile_photo {
+          url
+        }
+      }
+    }
+  }
+`;
+
 export {
   getPosts,
   getSinglePostBySlug,
@@ -537,4 +556,5 @@ export {
   LIKE_POST,
   FOLLOW_TAG_QUERY,
   getUserActivites,
+  GET_ALL_MESSAGES,
 };

@@ -25,9 +25,9 @@ const Step1 = ({ details, setDetails, handleChange }) => {
         onClick={() => setPasswordShow((prev) => !prev)}
       >
         {passwordShow ? (
-          <i className="uil uil-eye"></i>
+          <i className="uil uil-eye text-paragraphLightColor dark:text-paragraphDarkColor" />
         ) : (
-          <i className="uil uil-eye-slash"></i>
+          <i className="uil uil-eye-slash text-paragraphLightColor dark:text-paragraphDarkColor" />
         )}
       </button>
     </div>

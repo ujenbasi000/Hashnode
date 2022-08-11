@@ -1,5 +1,11 @@
 import { useContext, useEffect } from "react";
-import { Header, Profile, SideBar, Toast } from "../../../src/components";
+import {
+  Header,
+  Profile,
+  SearchList,
+  SideBar,
+  Toast,
+} from "../../../src/components";
 import { ctx } from "../../../src/helpers/context/post.context";
 import Head from "next/head";
 import {
@@ -97,12 +103,19 @@ export async function getServerSideProps(ctx) {
     query: getUserByUsername,
     variables: { username },
   });
-  profile_user = data.user;
-
-  return {
-    props: {
-      profile_user: profile_user,
-      user,
-    },
-  };
+  if (data.user) {
+    profile_user = data.user;
+    return {
+      props: {
+        profile_user: profile_user,
+        user,
+      },
+    };
+  } else {
+    return {
+      redirect: {
+        destination: "/",
+      },
+    };
+  }
 }

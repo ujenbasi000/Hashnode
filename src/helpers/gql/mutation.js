@@ -81,6 +81,33 @@ const PUBLISH_COMMENT = gql`
   }
 `;
 
+const EDIT_DATA_QUERY = gql`
+  query EDIT_DATA_QUERY($input: SlugInput!) {
+    getPostBySlug(input: $input) {
+      data {
+        content
+        title
+        _id
+        subtitle
+        tags
+        cover_image {
+          url
+        }
+      }
+    }
+  }
+`;
+
+const EDIT_POST = gql`
+  mutation EDIT_POST($input: UpdatePostInput!) {
+    updatePost(input: $input) {
+      error
+      message
+      success
+    }
+  }
+`;
+
 export {
   POST_QUERY,
   UPLOAD_QUERY,
@@ -89,4 +116,6 @@ export {
   LOGIN_USER,
   FOLLOW_USER,
   PUBLISH_COMMENT,
+  EDIT_DATA_QUERY,
+  EDIT_POST,
 };

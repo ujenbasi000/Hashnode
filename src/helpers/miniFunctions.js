@@ -77,6 +77,63 @@ const handleSubmit = async (
   }
 };
 
+const handleEditPost = async (
+  data,
+  content,
+  setContent,
+  setData,
+  setToast,
+  setUploading,
+  postBlog,
+  uploadedFile,
+  setUploadedFile,
+  handleOtherFunctions
+) => {
+  const { __typename, ...rest } = data;
+  const post = {
+    ...rest,
+    content,
+    cover_image: {
+      url: uploadedFile ? uploadedFile.url : null,
+    },
+    tags: data.tags
+      .split(", ")
+      .map((tag) => tag.toLowerCase().replaceAll(",", "").replaceAll(" ", "_")),
+  };
+  setUploading(true);
+  const res = await postBlog({
+    variables: {
+      input: {
+        ...post,
+      },
+    },
+    context: {
+      headers: {
+        authorization: `Bearer ${getCookie("token")}`,
+      },
+    },
+  });
+
+  setUploading(false);
+  if (res.data.updatePost.success) {
+    setToast({
+      type: "success",
+      status: true,
+      msg: "Post updated successfully",
+    });
+    setContent("");
+    setData({
+      title: "",
+      subtitle: "",
+      tags: "",
+    });
+    setUploadedFile(null);
+    if (typeof handleOtherFunctions === "function") {
+      handleOtherFunctions(post.slug);
+    }
+  }
+};
+
 // Upload Image: @UploadImage
 const UploadImage = async (
   e,
@@ -170,6 +227,7 @@ const readingTime = (text) => {
     return minutes === 0 ? 1 : minutes;
   }
 };
+
 const validator = {
   isEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -250,4 +308,5 @@ export {
   validator,
   reduceText,
   copyToClipboard,
+  handleEditPost,
 };

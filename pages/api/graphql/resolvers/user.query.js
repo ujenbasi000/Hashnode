@@ -3,13 +3,21 @@ const isAuth = require("../auth");
 
 const query = {
   getUser: async (_, __, ctx) => {
-    const user = await isAuth(ctx);
+    try {
+      const user = await isAuth(ctx);
 
-    return {
-      success: true,
-      user: user,
-      error: false,
-    };
+      return {
+        success: true,
+        user: user,
+        error: false,
+      };
+    } catch (err) {
+      return {
+        success: false,
+        user: null,
+        error: err,
+      };
+    }
   },
 
   getUserByUsername: async (_, { username }, ctx) => {

@@ -1,83 +1,70 @@
 import Head from "next/head";
-import { useEffect, useContext } from "react";
+import { useContext, useEffect } from "react";
 import {
-  FooterContainer,
-  CommentContainer,
-  SinglePageHead,
-  BlogContent,
+  Header,
+  SearchList,
   Toast,
-  BlogHeader,
+  WritingBody,
 } from "../../../src/components";
+import { ctx } from "../../../src/helpers/context/post.context";
+import { GET_USER_STATUS } from "../../../src/helpers/gql/query";
+import connectDB from "../../../server/config/db";
+import client from "../../../src/helpers/config/apollo-client";
 import { useRouter } from "next/router";
 
-import {
-  getSinglePostBySlug,
-  GET_USER_STATUS,
-} from "../../../src/helpers/gql/query";
-import client from "../../../src/helpers/config/apollo-client";
-import { ctx } from "../../../src/helpers/context/post.context";
-
-const edit = ({ data, user }) => {
-  const { toast, setToast, setUser } = useContext(ctx);
+const story = ({ user }) => {
+  const { slug, user: editingUser } = useRouter().query;
+  const { toast, setUser, setToast, searchState, setSearchState } =
+    useContext(ctx);
 
   useEffect(() => {
     setUser(user);
   }, [user]);
 
-  const router = useRouter();
+  useEffect(() => {
+    setSearchState(false);
+  }, []);
 
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
   return (
     <>
       <Head>
-        <title>{data.title}</title>
+        <title>Editing Article</title>
       </Head>
       {toast.status && (
         <Toast type={toast.type} msg={toast.msg} setToast={setToast} />
       )}
-      <BlogHeader details={data} />
-      <div className="w-full bg-grayWhite dark:bg-primaryBackground min-h-screen">
-        <div className="xl:container mx-auto px-4 py-8">
-          <SinglePageHead details={data} />
-          <BlogContent details={data} />
-          <CommentContainer post={data} />
+      <Header />
+      {searchState && (
+        <div
+          className="absolute top-0 left-0 w-full h-full"
+          onClick={() => setSearchState(false)}
+        ></div>
+      )}
+      <div className="bg-grayWhite dark:bg-primaryBackground">
+        <div
+          onClick={() => setSearchState(false)}
+          className={`xl:container mx-auto px-6 lg:px-0  ${
+            searchState ? "searchactive" : ""
+          }`}
+        >
+          {searchState ? (
+            <SearchList />
+          ) : (
+            <WritingBody edit={true} slug={slug} editingUser={editingUser} />
+          )}
         </div>
-        <FooterContainer />
       </div>
     </>
   );
 };
 
-export default edit;
+export default story;
 
 export async function getServerSideProps(ctx) {
-  const { user, slug } = ctx.query;
+  connectDB();
 
-  const {
-    data: { getPostBySlug: postData },
-  } = await client.query({
-    query: getSinglePostBySlug,
-    variables: {
-      input: {
-        user,
-        slug,
-      },
-    },
-  });
-
-  let logginedInUser = null;
+  let user = null;
   const token = ctx.req.cookies.token;
-
-  if (postData.data === null) {
-    return {
-      redirect: {
-        destination: "/404",
-        permanent: false,
-      },
-    };
-  }
 
   if (token) {
     const {
@@ -90,20 +77,12 @@ export async function getServerSideProps(ctx) {
         },
       },
     });
-    logginedInUser = data.user;
-
-    return {
-      props: {
-        data: postData.data,
-        user: logginedInUser,
-      },
-    };
-  } else {
-    return {
-      props: {
-        data: postData.data,
-        user: null,
-      },
-    };
+    user = data.user;
   }
+
+  return {
+    props: {
+      user: user,
+    },
+  };
 }

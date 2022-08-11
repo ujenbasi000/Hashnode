@@ -4,7 +4,7 @@ import { ctx } from "../src/helpers/context/post.context";
 import { validator } from "../src/helpers/miniFunctions";
 import { CREATE_USER } from "../src/helpers/gql/mutation";
 import { useMutation } from "@apollo/client";
-import { useCookies } from "react-cookie";
+import { setCookie } from "cookies-next";
 import client from "../src/helpers/config/apollo-client";
 import { GET_USER_STATUS } from "../src/helpers/gql/query";
 import { registerUser } from "../src/helpers/miniFunctions";
@@ -29,7 +29,6 @@ const onboard = () => {
   const { toast, setToast } = useContext(ctx);
 
   const [valid, setValid] = useState(false);
-  const [_, setCookie] = useCookies(["user"]);
   const [loginComp, setLoginComp] = useState(
     router.query.s === "login" ? true : false
   );

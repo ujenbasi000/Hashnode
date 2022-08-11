@@ -243,6 +243,15 @@ const typeDefs = gql`
     limit: Int!
   }
 
+  input UpdatePostInput {
+    _id: ID!
+    title: String
+    cover_image: ImageInput
+    content: String
+    tags: [String!]
+    subtitle: String
+  }
+
   type Query {
     getUser: GetUserResponse!
     getUserByUsername(username: String!): GetUserResponse!
@@ -267,7 +276,7 @@ const typeDefs = gql`
 
   type Mutation {
     createPost(input: CreatePostInput!): Response!
-    # updatePost(input: UpdatePostInput): UpdatePostResponse
+    updatePost(input: UpdatePostInput!): Response
     # deletePost(input: DeletePostInput): DeletePostResponse
 
     createTag(input: CreateTagInput!): Response!

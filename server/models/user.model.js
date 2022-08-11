@@ -52,7 +52,7 @@ UserSchema.pre("save", function (next) {
 
 // create a method that generate token
 UserSchema.methods.tokenCreation = function (id) {
-  const token = jwt.sign({ id }, "secretOrPrivateKey must have a value", {
+  const token = jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: `${1000 * 60 * 60 * 24 * 7}`,
   });
   return token;

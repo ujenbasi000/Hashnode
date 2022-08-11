@@ -28,6 +28,7 @@ const isAuth = async ({ req }) => {
     }
     return null;
   } catch (err) {
+    console.log(err);
     return null;
   }
 };

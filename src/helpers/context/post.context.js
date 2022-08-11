@@ -12,6 +12,9 @@ const PostCtx = ({
   setTheme,
   isOpen,
   setIsOpen,
+  socket,
+  currentUser,
+  setCurrentUser,
 }) => {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState("");
@@ -42,10 +45,17 @@ const PostCtx = ({
 
   useEffect(() => {
     window.addEventListener("keydown", (e) => {
-      if (e.key === "/") {
-        e.preventDefault();
-        // setSearchState(true);
-        inputRef.current.focus();
+      if (
+        document.activeElement.tagName === "INPUT" ||
+        document.activeElement.tagName === "TEXTAREA"
+      ) {
+        return;
+      } else {
+        if (e.key === "/") {
+          e.preventDefault();
+          // setSearchState(true);
+          inputRef.current.focus();
+        }
       }
     });
     return () =>
@@ -93,6 +103,10 @@ const PostCtx = ({
         setOpenMenu,
 
         setTheme,
+
+        socket,
+        currentUser,
+        setCurrentUser,
       }}
     >
       {children}

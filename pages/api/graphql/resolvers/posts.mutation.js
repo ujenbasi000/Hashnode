@@ -2,7 +2,7 @@ const Comment = require("../../../../server/models/comment.model");
 const Post = require("../../../../server/models/post.model");
 const Tag = require("../../../../server/models/tags.model");
 const User = require("../../../../server/models/user.model");
-const cloudinary = require("../../../../src/helpers/config/cloudinary.config");
+const cloudinary = require("../../../../src/helpers/config/cloudinary.config.js");
 const isAuth = require("../auth");
 
 const mutation = {
@@ -44,6 +44,24 @@ const mutation = {
         error: true,
       };
     }
+  },
+
+  updatePost: async (_, { input }, ctx) => {
+    const user = await isAuth(ctx);
+    if (!user) {
+      throw new Error("Please login to continue");
+    }
+    const { _id, ...details } = input;
+
+    await Post.findByIdAndUpdate(_id, {
+      ...details,
+    });
+
+    return {
+      message: "Post updated successfully",
+      success: true,
+      error: false,
+    };
   },
 
   likePost: async (_, { input }, ctx) => {

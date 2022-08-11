@@ -1,7 +1,11 @@
 import { useState, useContext } from "react";
 import { ctx } from "../../helpers/context/post.context";
-import { handleSubmit, UploadImage } from "../../helpers/miniFunctions";
-import { UPLOAD_QUERY } from "../../helpers/gql/mutation";
+import {
+  handleEditPost,
+  handleSubmit,
+  UploadImage,
+} from "../../helpers/miniFunctions";
+import { UPLOAD_QUERY, EDIT_POST } from "../../helpers/gql/mutation";
 import { useMutation } from "@apollo/client";
 
 const StoryHeader = ({
@@ -17,12 +21,14 @@ const StoryHeader = ({
   subtitle,
   setSubtitle,
   saved,
+  edit,
   handleOtherFunctions,
 }) => {
   const { setToast } = useContext(ctx);
   const [coverState, setCoverState] = useState(false);
   const [uploadImage] = useMutation(UPLOAD_QUERY);
   const [uploading, setUploading] = useState(false);
+  const [updatePost] = useMutation(EDIT_POST);
 
   const clearContent = () => {
     setContent("");
@@ -62,23 +68,25 @@ const StoryHeader = ({
         >
           Add Subtitle
         </button>
-        <button className="flex gap-2 items-center">
-          {saved ? (
-            <>
-              <i className="uil uil-save text-lg text-paragraphLightColor dark:text-paragraphDarkColor"></i>
-              <span className="text-md font-medium text-gray-800 dark:text-gray-200">
-                Saved
-              </span>
-            </>
-          ) : (
-            <>
-              <i className="uil uil-save text-lg text-paragraphLightColor dark:text-paragraphDarkColor"></i>
-              <span className="text-md font-medium text-gray-800 dark:text-gray-200">
-                Not Saved
-              </span>
-            </>
-          )}
-        </button>
+        {!edit && (
+          <button className="flex gap-2 items-center">
+            {saved ? (
+              <>
+                <i className="uil uil-save text-lg text-paragraphLightColor dark:text-paragraphDarkColor"></i>
+                <span className="text-md font-medium text-gray-800 dark:text-gray-200">
+                  Saved
+                </span>
+              </>
+            ) : (
+              <>
+                <i className="uil uil-save text-lg text-paragraphLightColor dark:text-paragraphDarkColor"></i>
+                <span className="text-md font-medium text-gray-800 dark:text-gray-200">
+                  Not Saved
+                </span>
+              </>
+            )}
+          </button>
+        )}
         {coverState && (
           <div className="bg-white absolute mt-6 top-full dark:bg-mainBackground left-0 w-max rounded-md border border-borderLightColor dark:border-borderDarkColor px-10 py-8">
             <input
@@ -110,25 +118,61 @@ const StoryHeader = ({
         <button onClick={clearContent} className="btn-secondary cursor-pointer">
           Cancel
         </button>
-        <button
-          className="btn-write disabled:opacity-90 disabled:cursor-not-allowed"
-          disabled={uploading}
-          onClick={() =>
-            handleSubmit(
-              data,
-              postBlog,
-              content,
-              setContent,
-              setToast,
-              setData,
-              uploadedFile,
-              setUploadedFile,
-              setUploading
-            )
-          }
-        >
-          {uploading ? "Publishing..." : "Publish"}
-        </button>
+        {edit ? (
+          <button
+            className="btn-write disabled:opacity-90 disabled:cursor-not-allowed"
+            disabled={uploading}
+            onClick={() => {
+              edit
+                ? handleEditPost(
+                    data,
+                    content,
+                    setContent,
+                    setData,
+                    setToast,
+                    setUploading,
+                    updatePost,
+                    uploadedFile,
+                    setUploadedFile,
+                    handleOtherFunctions
+                  )
+                : handleSubmit(
+                    data,
+                    content,
+                    setContent,
+                    setData,
+                    setToast,
+                    setUploading,
+                    postBlog,
+                    uploadedFile,
+                    setUploadedFile,
+                    handleOtherFunctions
+                  );
+            }}
+          >
+            {uploading ? "Updating..." : "Update"}
+          </button>
+        ) : (
+          <button
+            className="btn-write disabled:opacity-90 disabled:cursor-not-allowed"
+            disabled={uploading}
+            onClick={() =>
+              handleSubmit(
+                data,
+                postBlog,
+                content,
+                setContent,
+                setToast,
+                setData,
+                uploadedFile,
+                setUploadedFile,
+                setUploading
+              )
+            }
+          >
+            {uploading ? "Publishing..." : "Publish"}
+          </button>
+        )}
       </div>
     </header>
   );
