@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { useState, useEffect, useContext } from "react";
 import { getCookie } from "cookies-next";
 import { ctx } from "../../helpers/context/post.context";
-import { LIKE_POST } from "../../helpers/gql/query";
+import { DELETE_POST, LIKE_POST } from "../../helpers/gql/query";
 import useBookmark from "../../hooks/useBookmark";
 import { Confirm } from "../";
 import Link from "next/link";
@@ -17,8 +17,10 @@ const likes = [
   "Money",
   "Trophy",
 ];
+import { useRouter } from "next/router";
 
 const LikeBar = ({ commentDetails, details: data, like, setLike }) => {
+  const router = useRouter();
   const [bookmarkState, bookmark, checkBookmark] = useBookmark();
   const [details, setDetails] = useState({});
   const { user, setToast } = useContext(ctx);
@@ -29,6 +31,7 @@ const LikeBar = ({ commentDetails, details: data, like, setLike }) => {
   }, [data]);
 
   const [likeSubmit] = useMutation(LIKE_POST);
+  const [deletePostMutation] = useMutation(DELETE_POST);
 
   const likePost = async (like) => {
     setLike(false);
@@ -56,6 +59,40 @@ const LikeBar = ({ commentDetails, details: data, like, setLike }) => {
       setToast({
         type: "error",
         msg: "You need to login to like this post",
+        status: true,
+      });
+    }
+  };
+
+  const deletePost = async (id) => {
+    if (getCookie("token")) {
+      if (id) {
+        const { data } = await deletePostMutation({
+          variables: {
+            input: {
+              _id: id,
+            },
+          },
+          context: {
+            headers: {
+              authorization: `Bearer ${getCookie("token")}`,
+            },
+          },
+        });
+
+        if (data.deletePost.success) {
+          setToast({
+            status: true,
+            type: "success",
+            msg: data.deletePost.message,
+          });
+          router.push("/");
+        }
+      }
+    } else {
+      setToast({
+        type: "error",
+        msg: "You need to login",
         status: true,
       });
     }
@@ -124,7 +161,7 @@ const LikeBar = ({ commentDetails, details: data, like, setLike }) => {
                     height={20}
                     alt=""
                   />
-                  <span className="text-md font-medium text-mainBcakground dark:text-grayWhite">
+                  <span className="text-md font-medium text-mainBackground dark:text-grayWhite">
                     {details?.likes &&
                       details?.likes[like.toLowerCase()].length}
                   </span>
@@ -134,7 +171,7 @@ const LikeBar = ({ commentDetails, details: data, like, setLike }) => {
         </div>
         <div className="actions flex-warp flex-row lg:flex-col flex gap-8 items-center justify-center">
           <a href="#comments" className="btn-icon-dark px-4 py-2 relative">
-            <i className="uil uil-comment-add text-2xl"></i>
+            <i className="uil uil-comment-add text-2xl text-black dark:text-white"></i>
             <span className="bg-grayWhite grid place-content-center absolute bottom-0 right-0 text-md font-semibold w-6 h-6 rounded-full text-mainBackground">
               {commentDetails.commentsCount}
             </span>
@@ -144,16 +181,16 @@ const LikeBar = ({ commentDetails, details: data, like, setLike }) => {
             onClick={() => bookmark(data)}
           >
             {bookmarkState ? (
-              <i className="uis uis-bookmark text-2xl" />
+              <i className="uis uis-bookmark text-2xl text-black dark:text-white" />
             ) : (
-              <i className="uil uil-bookmark text-2xl" />
+              <i className="uil uil-bookmark text-2xl text-black dark:text-white" />
             )}
           </button>
           <button
             onClick={handleTwitterShare}
             className="btn-icon-dark px-4 py-2"
           >
-            <i className="uil uil-twitter-alt text-2xl"></i>
+            <i className="uil uil-twitter-alt text-2xl text-black dark:text-white"></i>
           </button>
           <button className="btn-icon-dark px-4 py-2" onClick={handleCopyURL}>
             <i className="uil uil-copy-alt text-2xl"></i>
@@ -166,7 +203,7 @@ const LikeBar = ({ commentDetails, details: data, like, setLike }) => {
           description="This action cannot be undone. This will permanently delete this post and all comments"
           btn="Delete this post"
           close={() => setDeleteConfirmation(false)}
-          func={() => console.log("Hello world")}
+          func={() => deletePost(data._id)}
         />
       )}
     </div>

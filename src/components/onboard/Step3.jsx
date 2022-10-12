@@ -28,7 +28,10 @@ const Step3 = ({ details, setDetails }) => {
   };
   return (
     <div className="grid place-content-center text-center">
-      <label htmlFor="profile" className="text-center mb-4 block">
+      <label
+        htmlFor="profile"
+        className="text-paragraphLightColor dark:text-paragraphDarkColor text-center mb-4 block"
+      >
         Profile
       </label>
       <input

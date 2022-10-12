@@ -33,7 +33,11 @@ const PostCtx = ({
     msg: "",
     type: "",
   });
-  const toggle = () => setIsOpen((prev) => !prev);
+
+  const toggle = () => {
+    setOverlay(false);
+    setIsOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -44,20 +48,21 @@ const PostCtx = ({
   }, [isOpen]);
 
   useEffect(() => {
-    window.addEventListener("keydown", (e) => {
-      if (
-        document.activeElement.tagName === "INPUT" ||
-        document.activeElement.tagName === "TEXTAREA"
-      ) {
-        return;
-      } else {
-        if (e.key === "/") {
-          e.preventDefault();
-          // setSearchState(true);
-          inputRef.current.focus();
+    if (inputRef.current) {
+      window.addEventListener("keydown", (e) => {
+        if (
+          document.activeElement.tagName === "INPUT" ||
+          document.activeElement.tagName === "TEXTAREA"
+        ) {
+          return;
+        } else {
+          if (e.key === "/") {
+            e.preventDefault();
+            inputRef.current.focus();
+          }
         }
-      }
-    });
+      });
+    }
     return () =>
       window.removeEventListener(
         "keydown",

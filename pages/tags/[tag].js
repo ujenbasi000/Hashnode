@@ -31,7 +31,6 @@ const TagPage = ({ user, data, tagData }) => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       setUser(user);
     }
   }, [user]);
@@ -45,14 +44,14 @@ const TagPage = ({ user, data, tagData }) => {
         <Toast type={toast.type} msg={toast.msg} setToast={setToast} />
       )}
       <Header />
-      <div className="dark:bg-mainBackground bg-grayWhite relative px-6">
+      <div className="dark:bg-mainBackground bg-grayWhite relative">
         <div
           className="absolute top-0 left-0 w-full h-full"
           onClick={() => setSearchState(false)}
         ></div>
         <div
           onClick={() => setSearchState(false)}
-          className={`xl:container mx-auto px-6 lg:px-0 posts ${
+          className={`w-full xl:container mx-auto posts ${
             searchState ? "searchactive" : ""
           }`}
         >

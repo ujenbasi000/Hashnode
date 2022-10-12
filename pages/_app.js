@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps }) {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
         >
-          {overlay && (
+          {(overlay || isOpen) && (
             <div
               className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 z-20"
               onClick={() => {

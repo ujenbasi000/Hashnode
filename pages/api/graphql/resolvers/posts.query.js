@@ -105,7 +105,7 @@ const exportedFunction = {
               "user.username": { $regex: search, $options: "i" },
             },
             { title: { $regex: search, $options: "i" } },
-            { tags: { $in: [search] } },
+            { tags: { $regex: search, $options: "i" } },
           ],
         },
       },

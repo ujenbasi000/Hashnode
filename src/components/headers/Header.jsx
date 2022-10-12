@@ -44,7 +44,7 @@ const Header = () => {
   }
 
   return (
-    <header className="z-30 relative w-full dark:bg-primaryBackground border-b border-borderLightColor dark:border-borderDarkColor px-4 m-0 lg:m-auto">
+    <header className="z-30 relative w-full bg-white dark:bg-primaryBackground border-b border-borderLightColor dark:border-borderDarkColor px-4 m-0 lg:m-auto">
       <div className="xl:container mx-auto py-4 flex gap-6 items-center justify-between">
         <div className="flex items-center justify-center gap-4">
           <button
@@ -139,7 +139,7 @@ const Header = () => {
               onClick={() => setOpenMenu((prev) => !prev)}
             >
               <Image
-                className="rounded-full object-fit"
+                className="rounded-full object-cover"
                 src={
                   user
                     ? user?.profile_photo?.url

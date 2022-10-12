@@ -1,15 +1,12 @@
 import Image from "next/Image";
 import Link from "next/link";
-import { useState } from "react";
-import Likeoptions from "../mini-components/Likeoptions";
 import { getDate } from "../../helpers/miniFunctions";
 import parse from "html-react-parser";
 import * as Showdown from "showdown";
 import showdownHighlight from "showdown-highlight";
+import { useEffect, useState } from "react";
 
 const CommentCard = ({ details }) => {
-  const [like, setLike] = useState(false);
-
   const converter = new Showdown.Converter({
     tables: true,
     simplifiedAutoLink: true,
@@ -21,6 +18,12 @@ const CommentCard = ({ details }) => {
       }),
     ],
   });
+  const [date, setDate] = useState(null);
+  useEffect(() => {
+    if (details && details._id) {
+      setDate(getDate(details?.createdAt));
+    }
+  }, [details]);
 
   return (
     <div className="rounded-md p-5 border border-borderLightColor dark:border-borderDarkColor text-xl my-6">
@@ -47,28 +50,12 @@ const CommentCard = ({ details }) => {
           </div>
         </div>
         <p className="text-paragraphLightColor dark:text-paragraphDarkColor text-sm font-medium">
-          {getDate(details?.createdAt)}
+          {date}
         </p>
       </header>
       <main className="text-base leading-snug py-6 px-14 text-paragraphLightColor dark:text-paragraphDarkColor">
         {parse(converter.makeHtml(details?.comment))}
       </main>
-
-      <footer>
-        <div className="relative">
-          <button
-            className="btn-icon-dark px-4 py-2 border border-borderLightColor dark:border-borderDarkColor"
-            onClick={() => setLike((prev) => !prev)}
-          >
-            <i className="uil uil-smile"></i>{" "}
-          </button>
-          {like && (
-            <div className="absolute top-full left-0 z-10 mt-2">
-              <Likeoptions />
-            </div>
-          )}
-        </div>
-      </footer>
     </div>
   );
 };

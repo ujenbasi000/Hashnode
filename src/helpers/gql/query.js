@@ -534,6 +534,16 @@ const GET_ALL_MESSAGES = gql`
   }
 `;
 
+const DELETE_POST = gql`
+  mutation DELETE_POST($input: DeletePostInput!) {
+    deletePost(input: $input) {
+      error
+      message
+      success
+    }
+  }
+`;
+
 export {
   getPosts,
   getSinglePostBySlug,
@@ -557,4 +567,5 @@ export {
   FOLLOW_TAG_QUERY,
   getUserActivites,
   GET_ALL_MESSAGES,
+  DELETE_POST,
 };

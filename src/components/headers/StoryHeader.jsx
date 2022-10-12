@@ -43,7 +43,7 @@ const StoryHeader = ({
   };
 
   return (
-    <header className="flex items-center justify-between">
+    <header className="flex flex-col md:items-center items-start md:flex-row justify-between">
       <div className="flex items-center gap-4 relative">
         {fileUploading ? (
           <p className="text-lg font-medium flex gap-2">
@@ -114,7 +114,7 @@ const StoryHeader = ({
           </div>
         )}
       </div>
-      <div className="flex flex-end gap-4">
+      <div className="flex flex-end gap-4 mt-4 md:mt-0">
         <button onClick={clearContent} className="btn-secondary cursor-pointer">
           Cancel
         </button>

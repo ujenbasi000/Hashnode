@@ -36,7 +36,7 @@ const story = ({ user }) => {
       <div className="bg-grayWhite dark:bg-primaryBackground">
         <div
           onClick={() => setSearchState(false)}
-          className={`xl:container mx-auto px-6 lg:px-0  ${
+          className={`xl:container mx-auto ${
             searchState ? "searchactive" : ""
           }`}
         >

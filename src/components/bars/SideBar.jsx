@@ -8,6 +8,7 @@ const SideBar = () => {
   const { isOpen, toggle, tags } = useContext(ctx);
   const router = useRouter();
   const { pathname } = router;
+
   const sideMenu = [
     {
       id: "1",
@@ -67,12 +68,12 @@ const SideBar = () => {
     <>
       <div
         onClick={toggle}
-        className={`bg-mainBackground z-20 bg-opacity-40 fixed top-0 left-0 w-screen h-screen md:hidden ${
+        className={` z-20 bg-opacity-40 fixed top-0 left-0 w-screen h-screen md:hidden ${
           !isOpen && "hidden"
         }`}
       ></div>
       <aside
-        className={`bg-secondaryBackground border-r border-borderDarkColor lg:bg-transparent lg:border-none px-3 lg:px-0 transition duration-200 h-screen flex items-between justify-between flex-col ${
+        className={`dark:bg-mainBackground bg-white border-r border-borderLightColor dark:border-borderDarkColor lg:bg-transparent lg:border-none px-3 lg:px-0 transition duration-200 h-screen flex items-between justify-between flex-col ${
           isOpen
             ? "lg:sticky translate-x-0 absolute top-0 left-0 z-30"
             : "lg:sticky lg:translate-x-0 -translate-x-full absolute top-0 left-0 z-30"

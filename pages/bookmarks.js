@@ -26,9 +26,22 @@ const bookmarks = ({ user }) => {
   const { setUser, setTags, toast, setToast, searchState, setSearchState } =
     useContext(ctx);
   const { data, loading: tagLoading, error } = useQuery(getTrendingTags);
+  console.log(error?.message);
 
   useEffect(() => {
-    setUser(user);
+    if (error && error.message) {
+      setToast({
+        status: true,
+        msg: error.message,
+        type: "error",
+      });
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (user) {
+      setUser(user);
+    }
   }, [user]);
 
   useEffect(() => {
@@ -70,11 +83,7 @@ const bookmarks = ({ user }) => {
         <Toast type={toast.type} msg={toast.msg} setToast={setToast} />
       )}
 
-      <div className="dark:bg-mainBackground bg-grayWhite relative">
-        {/* <div
-          className="absolute top-0 left-0 w-full h-full"
-          onClick={() => setSearchState(false)}
-        ></div> */}
+      <div className="dark:bg-mainBackground bg-grayWhite relative px-0 md:px-6">
         {searchState && (
           <div
             className="absolute top-0 left-0 w-full h-full"
@@ -83,7 +92,7 @@ const bookmarks = ({ user }) => {
         )}
         <div
           onClick={() => setSearchState(false)}
-          className={`xl:container mx-auto px-6 lg:px-0 posts ${
+          className={`xl:container mx-auto posts ${
             searchState ? "searchactive" : ""
           }`}
         >

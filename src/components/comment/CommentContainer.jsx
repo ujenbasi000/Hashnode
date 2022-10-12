@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ctx } from "../../helpers/context/post.context";
 import CommentCard from "./CommentCard";
 import WriteComment from "./WriteComment";
 
 const CommentContainer = ({ post, commentDetails, setCommentDetails }) => {
-  const { user } = useContext(ctx);
+  const { user, setToast } = useContext(ctx);
   const [writeComment, setWriteComment] = useState(false);
 
   return (
@@ -15,13 +15,23 @@ const CommentContainer = ({ post, commentDetails, setCommentDetails }) => {
         </h1>
         <button
           className="btn-write flex items-center gap-3"
-          onClick={() => setWriteComment((prev) => !prev)}
+          onClick={() => {
+            if (user) {
+              setWriteComment((prev) => !prev);
+            } else {
+              setToast({
+                status: true,
+                msg: "You are not allowed to comment",
+                type: "error",
+              });
+            }
+          }}
         >
           <i className="uil uil-plus"></i> <span>Write a Comment</span>
         </button>
       </header>
 
-      {writeComment && user?._id && (
+      {writeComment && (
         <WriteComment
           setWriteComment={setWriteComment}
           post={post}

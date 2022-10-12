@@ -31,7 +31,6 @@ const BlogHeader = ({ details }) => {
 
   const follow = async () => {
     const token = getCookie("token");
-    setLoading(true);
     if (!token) {
       return setToast({
         type: "error",
@@ -39,30 +38,41 @@ const BlogHeader = ({ details }) => {
         status: true,
       });
     }
-    const {
-      data: { followUser: data },
-    } = await followFunction({
-      variables: {
-        input: {
-          user: details.user._id,
+    try {
+      setLoading(true);
+      const {
+        data: { followUser: data },
+      } = await followFunction({
+        variables: {
+          input: {
+            user: details.user._id,
+          },
         },
-      },
-      context: {
-        headers: {
-          authorization: `Bearer ${token}`,
+        context: {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
         },
-      },
-    });
-    setLoading(false);
-    if (data.message === "User Unfollowed") {
-      setHasFollowed(false);
-    } else {
-      setHasFollowed(true);
-    }
-    if (data.success) {
+      });
+      setLoading(false);
+      if (data.message === "User Unfollowed") {
+        setHasFollowed(false);
+      } else {
+        setHasFollowed(true);
+      }
+      if (data.success) {
+        setToast({
+          type: "success",
+          msg: data.message,
+          status: true,
+        });
+      }
+    } catch (err) {
+      setLoading(false);
+
       setToast({
-        type: "success",
-        msg: data.message,
+        type: "error",
+        msg: err,
         status: true,
       });
     }
@@ -70,7 +80,7 @@ const BlogHeader = ({ details }) => {
 
   return (
     <div className="dark:bg-primaryBackground w-full border-b border-borderLightColor dark:border-borderDarkColor px-4">
-      <div className="container flex itemscenter justify-between mx-auto py-6">
+      <div className="container flex flex-col md:flex-row items-center justify-between mx-auto py-6">
         <div className="flex items-center gap-3">
           <Link href={`/${details?.user?.username}`}>
             <div className="flex items-center gap-3 cursor-pointer">
@@ -79,7 +89,7 @@ const BlogHeader = ({ details }) => {
                   src={details?.user?.profile_photo?.url}
                   width={50}
                   height={50}
-                  className="rounded-full object-fit"
+                  className="rounded-full object-cover"
                   alt="User"
                 />
               )}
@@ -117,48 +127,50 @@ const BlogHeader = ({ details }) => {
             </button>
           )}
         </div>
-        <Link href={"/"}>
-          <button>
-            <Hashnode_logo font={40} />
-          </button>
-        </Link>
-
-        <div className="flex items-center gap-2">
-          <button className="rounded-full hover:bg-gray-200 hover:dark:bg-gray-700">
-            <div
-              onClick={() =>
-                document.querySelector("body").classList.toggle("dark")
-              }
-              className="w-10 h-10 grid place-content-center"
-            >
-              <i className="uil uil-moon dark:uil-sun text-2xl text-gray-600 dark:text-gray-200"></i>
-            </div>
-          </button>
-          <button className="rounded-full hover:bg-gray-200 hover:dark:bg-gray-700 hidden sm:block">
-            <div className="w-10 h-10 grid place-content-center">
-              <i className="uil uil-bell text-2xl text-gray-600 dark:text-gray-200"></i>
-            </div>
-          </button>
-          <div className="relative">
-            <button
-              className="flex items-center justify-center ml-3 w-[40px]"
-              onClick={() => setOpenMenu((prev) => !prev)}
-            >
-              <Image
-                className="rounded-full object-fit"
-                src={
-                  user
-                    ? user?.profile_photo?.url
-                      ? user.profile_photo.url
-                      : User
-                    : User
-                }
-                width={70}
-                height={70}
-                alt="User"
-              />
+        <div className="flex items-center justify-between w-1/2 mt-6 md:mt-0">
+          <Link href={"/"}>
+            <button>
+              <Hashnode_logo font={40} />
             </button>
-            {openMenu && <HeaderMenu user={user} setOpenMenu={setOpenMenu} />}
+          </Link>
+
+          <div className="flex items-center gap-2">
+            <button className="rounded-full hover:bg-gray-200 hover:dark:bg-gray-700">
+              <div
+                onClick={() =>
+                  document.querySelector("body").classList.toggle("dark")
+                }
+                className="w-10 h-10 grid place-content-center"
+              >
+                <i className="uil uil-moon dark:uil-sun text-2xl text-gray-600 dark:text-gray-200"></i>
+              </div>
+            </button>
+            <button className="rounded-full hover:bg-gray-200 hover:dark:bg-gray-700 hidden sm:block">
+              <div className="w-10 h-10 grid place-content-center">
+                <i className="uil uil-bell text-2xl text-gray-600 dark:text-gray-200"></i>
+              </div>
+            </button>
+            <div className="relative">
+              <button
+                className="flex items-center justify-center ml-3 w-[40px]"
+                onClick={() => setOpenMenu((prev) => !prev)}
+              >
+                <Image
+                  className="rounded-full object-cover"
+                  src={
+                    user
+                      ? user?.profile_photo?.url
+                        ? user.profile_photo.url
+                        : User
+                      : User
+                  }
+                  width={70}
+                  height={70}
+                  alt="User"
+                />
+              </button>
+              {openMenu && <HeaderMenu user={user} setOpenMenu={setOpenMenu} />}
+            </div>
           </div>
         </div>
       </div>

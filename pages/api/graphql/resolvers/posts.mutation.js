@@ -234,6 +234,31 @@ const mutation = {
       url: response.secure_url,
     };
   },
+
+  deletePost: async (_, { input }, ctx) => {
+    const user = await isAuth(ctx);
+    if (!user) {
+      return {
+        message: "Not authorized to delete this post",
+        success: false,
+        error: true,
+      };
+    }
+    const post = await Post.findById(input._id);
+    if (!post) {
+      return {
+        message: "Post not found",
+        success: false,
+        error: true,
+      };
+    }
+    await Post.findByIdAndDelete(input._id);
+    return {
+      message: "Post deleted successfully",
+      success: true,
+      error: false,
+    };
+  },
 };
 
 module.exports = mutation;

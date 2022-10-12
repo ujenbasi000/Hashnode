@@ -10,30 +10,34 @@ import Head from "next/head";
 import client from "../src/helpers/config/apollo-client";
 import { ctx } from "../src/helpers/context/post.context";
 import { getPostsByUser, GET_USER_STATUS } from "../src/helpers/gql/query";
-import connect from "../server/config/db";
 
 const User = ({ data, user }) => {
+  console.log(data);
   const { toast, setToast, setUser } = useContext(ctx);
 
   useEffect(() => {
-    setUser(user);
+    if (user) {
+      setUser(user);
+    }
   }, [user]);
 
   return (
-    <>
+    <section className="min-h-screen flex flex-col">
       {toast.status && (
         <Toast type={toast.type} msg={toast.msg} setToast={setToast} />
       )}
-      {user.name && (
+      {data && (
         <Head>
-          <title>{user.name} — Hashnode</title>
+          <title>{data.user.name} — Hashnode</title>
         </Head>
       )}
       <BlogHeader details={data} />
       <UserDetails details={data} />
-      <UserPosts posts={data.posts} />
-      <FooterContainer />
-    </>
+      <div className="flex flex-col w-full flex-1">
+        <UserPosts posts={data.posts} />
+        <FooterContainer />
+      </div>
+    </section>
   );
 };
 

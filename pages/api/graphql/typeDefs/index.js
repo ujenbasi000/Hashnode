@@ -238,6 +238,10 @@ const typeDefs = gql`
     data: Post
   }
 
+  input DeletePostInput {
+    _id: ID!
+  }
+
   input LimitInput {
     skip: Int!
     limit: Int!
@@ -250,6 +254,12 @@ const typeDefs = gql`
     content: String
     tags: [String!]
     subtitle: String
+  }
+
+  type DeletePostResponse {
+    success: Boolean!
+    message: String!
+    error: Boolean!
   }
 
   type Query {
@@ -276,8 +286,8 @@ const typeDefs = gql`
 
   type Mutation {
     createPost(input: CreatePostInput!): Response!
-    updatePost(input: UpdatePostInput!): Response
-    # deletePost(input: DeletePostInput): DeletePostResponse
+    updatePost(input: UpdatePostInput!): Response!
+    deletePost(input: DeletePostInput!): DeletePostResponse!
 
     createTag(input: CreateTagInput!): Response!
     followTag(input: FollowTagInput!): FollowedTagResponse!

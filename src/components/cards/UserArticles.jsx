@@ -3,7 +3,7 @@ import { reduceText, getDate, readingTime } from "../../helpers/miniFunctions";
 
 const UserArticles = ({ details }) => {
   return (
-    <div className="userArticle my-4 py-3 md:flex-row flex-col flex items-center justify-between gap-4 w-7/12 mx-auto border-b border-borderLightColor dark:border-borderDarkColor">
+    <div className="userArticle my-4 py-3 md:flex-row flex-col flex items-center justify-between gap-4 w-full lg:w-7/12 mx-auto border-b border-borderLightColor dark:border-borderDarkColor">
       <div className="w-full">
         <Link
           href={`/${details.user.username.toLowerCase().replaceAll(" ", "")}/${

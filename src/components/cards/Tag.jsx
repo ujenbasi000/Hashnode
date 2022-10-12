@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Tag = ({ details }) => {
   return (
-    <div className="p-4 rounded-md border border-borderLightColor dark:border-borderDarkColor bg-grayWhite dark:bg-secondaryBackground ">
+    <div className="w-full sm:w-[calc(100%/2-15px)] md:w-[calc(100%/3-15px)] p-4 rounded-md border border-borderLightColor dark:border-borderDarkColor bg-grayWhite dark:bg-secondaryBackground ">
       <Link href={`/tags/${details.name}`}>
         <div className="flex gap-3 cursor-pointer">
           <Image

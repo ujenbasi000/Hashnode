@@ -73,7 +73,7 @@ const Article = ({ details }) => {
         <div>
           <div className="flex gap-1 items-center">
             <Link href={`/${details.user.username}`}>
-              <h1 className="font-semibold text-md w-fit cursor-pointer text-gray-800 dark:text-gray-300">
+              <h1 className="font-semibold text-sm md:text-md w-fit cursor-pointer text-gray-800 dark:text-gray-300">
                 {details.user.name}&nbsp;·
               </h1>
             </Link>
@@ -85,7 +85,7 @@ const Article = ({ details }) => {
             <div className="w-4">
               <i className="uil uil-book-open text-gray-800 dark:text-gray-300"></i>{" "}
             </div>
-            <span className="dark:text-paragraphDarkColor text-paragraphLightColor text-sm">
+            <span className="dark:text-paragraphDarkColor text-paragraphLightColor  text-xs md:text-sm">
               {readingTime(details.content)} mins read
             </span>
           </div>
@@ -107,7 +107,7 @@ const Article = ({ details }) => {
               .toLowerCase()
               .replaceAll(" ", "")}/${details.slug}`}
           >
-            <div className="text-paragraphLightColor dark:text-paragraphDarkColor text-base my-4 leading-normal cursor-pointer article_content">
+            <div className="text-paragraphLightColor dark:text-paragraphDarkColor text-sm md:text-md my-4 leading-normal cursor-pointer article_content">
               {reduceText(
                 details.content,
                 details.cover_image && details.cover_image.url ? 200 : 240,
@@ -117,7 +117,7 @@ const Article = ({ details }) => {
           </Link>
         </div>
         {details.cover_image?.url && (
-          <div className="md:w-[25rem] w-full sm:w-9/12 md:mb-0 mb-6 cursor-pointer">
+          <div className="md:w-[25rem] mx-auto w-full sm:w-9/12 md:mb-0 mb-6 cursor-pointer">
             <Link
               href={`/${details.user.username
                 .toLowerCase()

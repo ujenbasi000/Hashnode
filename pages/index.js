@@ -31,8 +31,10 @@ const Home = ({ postData, user }) => {
   } = useContext(ctx);
 
   useEffect(() => {
-    setSearchState(false);
-    setPosts(postData);
+    if (postData) {
+      setSearchState(false);
+      setPosts(postData);
+    }
   }, []);
 
   useEffect(() => {
@@ -41,10 +43,12 @@ const Home = ({ postData, user }) => {
       error,
       loading,
     });
-  }, [data]);
+  }, [data, error, loading]);
 
   useEffect(() => {
-    setUser(user);
+    if (user) {
+      setUser(user);
+    }
   }, [user]);
 
   return (
@@ -56,20 +60,15 @@ const Home = ({ postData, user }) => {
       {toast.status && (
         <Toast type={toast.type} msg={toast.msg} setToast={setToast} />
       )}
-      <div className="dark:bg-mainBackground bg-grayWhite relative px-6">
-        {/* <div
-          className="absolute top-0 left-0 w-full h-full"
-          onClick={() => setSearchState(false)}
-        ></div> */}
+      <div className="dark:bg-mainBackground bg-grayWhite relative px-0 md:px-6">
         {searchState && (
           <div
-            className="absolute top-0 left-0 w-full h-full"
+            className="absolute top-0 left-0 w-full h-full z-10"
             onClick={() => setSearchState(false)}
           ></div>
         )}
         <div
-          onClick={() => setSearchState(false)}
-          className={`xl:container mx-auto px-6 lg:px-0 posts ${
+          className={`w-full xl:container mx-auto posts ${
             searchState ? "searchactive" : ""
           }`}
         >
@@ -91,33 +90,40 @@ const Home = ({ postData, user }) => {
 export default Home;
 
 export async function getServerSideProps(ctx) {
-  connect();
-  const { data: postData } = await client.query({
-    query: getPosts,
-    variables: { input: { limit: 10, skip: 0 } },
-  });
-
-  let user = null;
-  const token = ctx.req.cookies.token;
-
-  if (token) {
-    const {
-      data: { getUser: data },
-    } = await client.query({
-      query: GET_USER_STATUS,
-      context: {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      },
+  try {
+    connect();
+    const { data: postData } = await client.query({
+      query: getPosts,
+      variables: { input: { limit: 10, skip: 0 } },
     });
-    user = data.user;
-  }
 
-  return {
-    props: {
-      postData: postData.getPosts,
-      user: user,
-    },
-  };
+    let user = null;
+    const token = ctx.req.cookies.token;
+
+    if (token) {
+      const {
+        data: { getUser: data },
+      } = await client.query({
+        query: GET_USER_STATUS,
+        context: {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+      });
+      user = data.user;
+    }
+
+    return {
+      props: {
+        postData: postData.getPosts,
+        user: user,
+      },
+    };
+  } catch (err) {
+    console.log("error occured: ", err.message);
+    return {
+      props: {},
+    };
+  }
 }

@@ -141,24 +141,33 @@ const UploadImage = async (
   setFileUploading,
   setCoverState,
   setUploadedFile,
-  handleOtherFunctions
+  handleOtherFunctions,
+  setToast
 ) => {
   const file = e.target.files[0];
   setFileUploading(true);
-  const {
-    data: {
-      uploadImage: { url, cloud_id },
-    },
-  } = await uploadImage({
-    variables: {
-      file,
-    },
-  });
-  setFileUploading(false);
-  typeof setCoverState === "function" && setCoverState(false);
-  setUploadedFile({ url, cloud_id });
-  if (typeof handleOtherFunctions === "function") {
-    handleOtherFunctions(url, cloud_id);
+  try {
+    const {
+      data: {
+        uploadImage: { url, cloud_id },
+      },
+    } = await uploadImage({
+      variables: {
+        file,
+      },
+    });
+    setFileUploading(false);
+    typeof setCoverState === "function" && setCoverState(false);
+    setUploadedFile({ url, cloud_id });
+    if (typeof handleOtherFunctions === "function") {
+      handleOtherFunctions(url, cloud_id);
+    }
+  } catch (err) {
+    setToast({
+      msg: err.message,
+      type: "error",
+      status: true,
+    });
   }
 };
 
@@ -177,6 +186,7 @@ const registerUser = async (
       input: details,
     },
   });
+
   setLoading(false);
 
   if (data.success) {

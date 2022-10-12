@@ -54,14 +54,14 @@ const newTag = ({ user }) => {
       {toast.status && (
         <Toast type={toast.type} msg={toast.msg} setToast={setToast} />
       )}
-      <div className="dark:bg-mainBackground bg-grayWhite relative">
+      <div className="dark:bg-mainBackground bg-grayWhite relative px-0 md:px-6">
         <div
           className="absolute top-0 left-0 w-full h-full"
           onClick={() => setSearchState(false)}
         ></div>
         <div
           onClick={() => setSearchState(false)}
-          className={`container mx-auto px-6 lg:px-0 newTag ${
+          className={`container mx-auto newTag ${
             searchState && "searchactive"
           }`}
         >

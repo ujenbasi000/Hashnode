@@ -10,7 +10,7 @@ import { useEffect } from "react";
 const TagHeader = ({ tagData }) => {
   const token = getCookie("token");
   const [followTagFunction] = useMutation(FOLLOW_TAG_QUERY);
-  const [followeState, setFollowState] = useState(false);
+  const [followeState, setFollowState] = useState(null);
   const { user, setToast } = useContext(ctx);
   const [tagDetails, setTagDetails] = useState({
     _id: "",
@@ -38,38 +38,46 @@ const TagHeader = ({ tagData }) => {
   }, [tagDetails, user]);
 
   const followTag = async () => {
-    const {
-      data: { followTag: data },
-    } = await followTagFunction({
-      variables: {
-        input: {
-          name: tagDetails.name,
+    if (user && user?._id) {
+      const {
+        data: { followTag: data },
+      } = await followTagFunction({
+        variables: {
+          input: {
+            name: tagDetails.name,
+          },
         },
-      },
-      context: {
-        headers: {
-          authorization: `Bearer ${token}`,
+        context: {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
         },
-      },
-    });
-
-    setToast({
-      type: "success",
-      msg: data.message,
-      status: true,
-    });
-
-    if (data.message === "Followed") {
-      setFollowState(false);
-      setTagDetails({
-        ...tagDetails,
-        followers: data.data.followers,
       });
+
+      setToast({
+        type: "success",
+        msg: data.message,
+        status: true,
+      });
+
+      if (data.message === "Followed") {
+        setFollowState(false);
+        setTagDetails({
+          ...tagDetails,
+          followers: data.data.followers,
+        });
+      } else {
+        setFollowState(true);
+        setTagDetails({
+          ...tagDetails,
+          followers: data.data.followers,
+        });
+      }
     } else {
-      setFollowState(true);
-      setTagDetails({
-        ...tagDetails,
-        followers: data.data.followers,
+      setToast({
+        msg: "Login to follow tags",
+        type: "error",
+        status: true,
       });
     }
   };
@@ -98,7 +106,7 @@ const TagHeader = ({ tagData }) => {
             className="btn-link border border-blueColor flex items-center gap-1"
             onClick={followTag}
           >
-            {followeState ? (
+            {followeState === true || followeState === null ? (
               <>
                 <i className="text-blueColor text-xl uil uil-plus"></i>
                 <span>Follow</span>
