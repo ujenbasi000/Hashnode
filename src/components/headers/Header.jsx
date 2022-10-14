@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import User from "../../../public/assets/demo_user.webp";
 import { useLazyQuery } from "@apollo/client";
-import { useState, useContext, useCallback } from "react";
+import { useContext, useCallback } from "react";
 import { ctx } from "../../helpers/context/post.context";
 import { debounce } from "lodash";
 import { GET_SEARCHED_POST } from "../../helpers/gql/query";
@@ -120,9 +120,9 @@ const Header = () => {
           </Link>
           <button className="rounded-full hover:bg-gray-200 hover:dark:bg-gray-700">
             <div
-              onClick={() =>
-                setTheme((theme) => (theme === "dark" ? "light" : "dark"))
-              }
+              onClick={() => {
+                setTheme((theme) => (theme === "dark" ? "light" : "dark"));
+              }}
               className="w-10 h-10 grid place-content-center"
             >
               <i className="uil uil-moon dark:uil-sun text-2xl text-gray-600 dark:text-gray-200"></i>

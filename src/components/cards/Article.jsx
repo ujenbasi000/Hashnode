@@ -59,14 +59,16 @@ const Article = ({ details }) => {
       <header className="flex items-center gap-2">
         <div className="w-12 h-12 rounded-full cursor-pointer">
           <Link href={`/${details.user.username}`}>
-            <Image
-              className="rounded-full"
-              src={details.user.profile_photo.url}
-              width={40}
-              height={40}
-              draggable={false}
-              alt={details.user.username}
-            />
+            <div>
+              <Image
+                className="rounded-full"
+                src={details.user.profile_photo.url}
+                width={40}
+                height={40}
+                draggable={false}
+                alt={details.user.username}
+              />
+            </div>
           </Link>
         </div>
 
@@ -91,6 +93,7 @@ const Article = ({ details }) => {
           </div>
         </div>
       </header>
+
       <section className="my-3 md:flex-row flex-col flex items-start justify-between gap-4">
         <div className="w-full">
           <Link
@@ -116,6 +119,7 @@ const Article = ({ details }) => {
             </div>
           </Link>
         </div>
+
         {details.cover_image?.url && (
           <div className="md:w-[25rem] mx-auto w-full sm:w-9/12 md:mb-0 mb-6 cursor-pointer">
             <Link
@@ -133,6 +137,7 @@ const Article = ({ details }) => {
           </div>
         )}
       </section>
+
       <footer className="flex justify-between items-center px-2">
         <div className="flex items-center gap-6">
           <button
@@ -161,6 +166,7 @@ const Article = ({ details }) => {
             {getRemaining(details.tags)}
           </div>
         </div>
+
         <div className="flex items-center gap-4">
           <button className="flex items-center gap-3">
             <div className="w-4">

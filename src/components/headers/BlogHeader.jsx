@@ -12,7 +12,7 @@ import { useEffect } from "react";
 
 const BlogHeader = ({ details }) => {
   const [followFunction] = useMutation(FOLLOW_USER);
-  const { setToast, user } = useContext(ctx);
+  const { setToast, user, setTheme } = useContext(ctx);
   const [openMenu, setOpenMenu] = useState(false);
   const [loading, setLoading] = useState(false);
   const [hasFollowed, setHasFollowed] = useState(false);
@@ -138,7 +138,7 @@ const BlogHeader = ({ details }) => {
             <button className="rounded-full hover:bg-gray-200 hover:dark:bg-gray-700">
               <div
                 onClick={() =>
-                  document.querySelector("body").classList.toggle("dark")
+                  setTheme((theme) => (theme === "dark" ? "light" : "dark"))
                 }
                 className="w-10 h-10 grid place-content-center"
               >

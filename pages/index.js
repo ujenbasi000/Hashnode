@@ -56,10 +56,13 @@ const Home = ({ postData, user }) => {
       <Head>
         <title>🚀 Hashnode | Clone 👋</title>
       </Head>
+
       <Header />
+
       {toast.status && (
         <Toast type={toast.type} msg={toast.msg} setToast={setToast} />
       )}
+
       <div className="dark:bg-mainBackground bg-grayWhite relative px-0 md:px-6">
         {searchState && (
           <div
@@ -67,6 +70,7 @@ const Home = ({ postData, user }) => {
             onClick={() => setSearchState(false)}
           ></div>
         )}
+
         <div
           className={`w-full xl:container mx-auto posts ${
             searchState ? "searchactive" : ""

@@ -18,7 +18,7 @@ import { useQuery } from "@apollo/client";
 import connect from "../../../server/config/db";
 
 const UserProfile = ({ user, profile_user }) => {
-  const { toast, setUser, setSearchState, searchState, setTags } =
+  const { toast, setToast, setUser, setSearchState, searchState, setTags } =
     useContext(ctx);
   const { data, error, loading } = useQuery(getTrendingTags);
 
@@ -43,15 +43,19 @@ const UserProfile = ({ user, profile_user }) => {
       <Head>
         <title>Profile | Hashnode Clone 🟢</title>
       </Head>
+
       <Header />
+
       {toast.status && (
         <Toast type={toast.type} msg={toast.msg} setToast={setToast} />
       )}
+
       <div className="dark:bg-mainBackground bg-grayWhite relative">
         <div
           className="absolute top-0 left-0 w-full h-full"
           onClick={() => setSearchState(false)}
         ></div>
+
         <div
           onClick={() => setSearchState(false)}
           className={`xl:container mx-auto px-6 xl:px-0 profile ${
@@ -94,6 +98,7 @@ export async function getServerSideProps(ctx) {
         },
       },
     });
+
     user = data.user;
   }
 
@@ -103,6 +108,7 @@ export async function getServerSideProps(ctx) {
     query: getUserByUsername,
     variables: { username },
   });
+
   if (data.user) {
     profile_user = data.user;
     return {

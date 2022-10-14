@@ -99,7 +99,8 @@ const StoryHeader = ({
                   setFileUploading,
                   setCoverState,
                   setUploadedFile,
-                  handleOtherFunctions
+                  handleOtherFunctions,
+                  setToast
                 );
                 setCoverState(false);
               }}

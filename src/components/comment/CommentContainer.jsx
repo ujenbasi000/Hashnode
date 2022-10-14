@@ -9,7 +9,7 @@ const CommentContainer = ({ post, commentDetails, setCommentDetails }) => {
 
   return (
     <div id="comments" className="w-11/12 lg:w-9/12 xl:w-6/12 mx-auto py-10">
-      <header className="flex justify-between items-center w-full rounded-md border border-borderLightColor dark:border-borderDarkColor px-3 py-4 mb-10">
+      <header className="flex flex-wrap justify-between items-center w-full rounded-md border border-borderLightColor dark:border-borderDarkColor px-3 py-4 mb-10">
         <h1 className="font-bold text-priamryBackground dark:text-grayWhite text-xl">
           Comments ({commentDetails.commentsCount})
         </h1>

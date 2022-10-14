@@ -304,7 +304,6 @@ const typeDefs = gql`
 
     # Follow:
     followUser(input: FollowUserInput!): Response!
-    #followTag(input: FollowTagInput!): Response!
   }
 `;
 

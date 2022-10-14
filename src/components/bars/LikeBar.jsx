@@ -125,18 +125,18 @@ const LikeBar = ({ commentDetails, details: data, like, setLike }) => {
   }, [details, bookmarkState]);
 
   return (
-    <div className="w-full lg:w-48 blog_content_sidebar py-20">
+    <div className="w-full lg:w-[250px] py-6 lg:py-20">
       <div className="sticky top-10 right-0">
         {data.user._id === user?._id && (
           <div className="flex flex-col items-center gap-3 mb-6">
             <Link href={`/${user.username}/${data.slug}/edit`}>
-              <button className="w-full rounded-md border border-borderLightColor dark:border-borderDarkColor text-lg text-black outline-blue-600 dark:text-white py-2 transistion duration-300 hover:bg-blue-600">
+              <button className="min-w-[200px] lg:w-full rounded-md border border-borderLightColor dark:border-borderDarkColor text-lg text-black outline-blue-600 dark:text-white py-2 transistion duration-300 hover:bg-blue-600">
                 Edit
               </button>
             </Link>
             <button
               onClick={openDeleteConfirmation}
-              className="w-full rounded-md border border-borderLightColor dark:border-borderDarkColor text-lg text-black outline-red-600 dark:text-white py-2 transistion duration-300 hover:bg-red-600"
+              className="min-w-[200px] lg:w-full rounded-md border border-borderLightColor dark:border-borderDarkColor text-lg text-black outline-red-600 dark:text-white py-2 transistion duration-300 hover:bg-red-600"
             >
               Delete
             </button>
@@ -146,26 +146,30 @@ const LikeBar = ({ commentDetails, details: data, like, setLike }) => {
           {details.likes &&
             likes.map((like, index) => {
               return (
-                <button
-                  onClick={() => likePost(like)}
+                <div
                   key={index}
-                  className={`gap-2 btn-icon-dark px-4 py-2 flex items-center justify-center ${
-                    details.likes[like.toLocaleLowerCase()].includes(
-                      user?._id
-                    ) && "border border-blue-600 dark:border-blue-600"
-                  }`}
+                  className={`w-auto lg:w-[calc(100%/2-10px)] flex items-center justify-center`}
                 >
-                  <Image
-                    src={require(`../../../public/assets/icons/reactions/${like.toLocaleLowerCase()}.avif`)}
-                    width={20}
-                    height={20}
-                    alt=""
-                  />
-                  <span className="text-md font-medium text-mainBackground dark:text-grayWhite">
-                    {details?.likes &&
-                      details?.likes[like.toLowerCase()].length}
-                  </span>
-                </button>
+                  <button
+                    className={`px-4 py-2 flex gap-3 items-center justify-center btn-icon-dark ${
+                      details.likes[like.toLocaleLowerCase()].includes(
+                        user?._id
+                      ) && "border border-blue-600 dark:border-blue-600"
+                    }`}
+                    onClick={() => likePost(like)}
+                  >
+                    <Image
+                      src={require(`../../../public/assets/icons/reactions/${like.toLocaleLowerCase()}.avif`)}
+                      width={30}
+                      height={30}
+                      alt=""
+                    />
+                    <span className="text-md font-medium text-mainBackground dark:text-grayWhite">
+                      {details?.likes &&
+                        details?.likes[like.toLowerCase()].length}
+                    </span>
+                  </button>
+                </div>
               );
             })}
         </div>

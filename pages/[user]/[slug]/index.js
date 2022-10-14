@@ -18,7 +18,6 @@ import client from "../../../src/helpers/config/apollo-client";
 import { ctx } from "../../../src/helpers/context/post.context";
 
 const Singleblog = ({ data, user }) => {
-  // console.log(data);
   const { toast, setToast, setUser } = useContext(ctx);
   const [commentDetails, setCommentDetails] = useState({
     comments: data?.comments,
@@ -42,12 +41,15 @@ const Singleblog = ({ data, user }) => {
           <title>{data.title} — Hashnode</title>
         </Head>
       )}
+
       {toast.status && (
         <Toast type={toast.type} msg={toast.msg} setToast={setToast} />
       )}
+
       <BlogHeader details={data} />
+
       <div className="w-full bg-grayWhite dark:bg-primaryBackground min-h-screen">
-        <div className="xl:container mx-auto px-4 py-8">
+        <div className="xl:container mx-auto px-0 lg:px-4 py-8">
           <SinglePageHead details={data} />
           <BlogContent commentDetails={commentDetails} details={data} />
           <CommentContainer
@@ -56,6 +58,7 @@ const Singleblog = ({ data, user }) => {
             setCommentDetails={setCommentDetails}
           />
         </div>
+
         <FooterContainer />
       </div>
     </>

@@ -64,6 +64,7 @@ const onboard = () => {
     setValue({ ...value, [e.target.name]: e.target.value });
   };
 
+  console.log(loading);
   const handleSubmit = async () => {
     registerUser(details, createUser, setCookie, setLoading, setToast);
   };
@@ -90,6 +91,7 @@ const onboard = () => {
               valid={valid}
               setValid={setValid}
               setStep={setStep}
+              loading={loading}
               handleSubmit={handleSubmit}
             />
           )}

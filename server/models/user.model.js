@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const UserSchema = new mongoose.Schema(
   {
     name: { type: String },
-    tagline: [{ type: String }],
+    tagline: { type: [{ type: String }], default: [] },
     profile_photo: {
       url: { type: String },
       cloud_id: { type: String },
@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema(
       available: { type: String },
       about: { type: String },
     },
-    skills: [{ type: String }],
+    skills: { type: [{ type: String }], default: [] },
     social: {
       twitter: { type: String },
       instagram: { type: String },

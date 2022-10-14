@@ -145,28 +145,36 @@ const UploadImage = async (
   setToast
 ) => {
   const file = e.target.files[0];
-  setFileUploading(true);
-  try {
-    const {
-      data: {
-        uploadImage: { url, cloud_id },
-      },
-    } = await uploadImage({
-      variables: {
-        file,
-      },
-    });
-    setFileUploading(false);
-    typeof setCoverState === "function" && setCoverState(false);
-    setUploadedFile({ url, cloud_id });
-    if (typeof handleOtherFunctions === "function") {
-      handleOtherFunctions(url, cloud_id);
+  if (file.size <= 5000000) {
+    setFileUploading(true);
+    try {
+      const {
+        data: {
+          uploadImage: { url, cloud_id },
+        },
+      } = await uploadImage({
+        variables: {
+          file,
+        },
+      });
+      setFileUploading(false);
+      typeof setCoverState === "function" && setCoverState(false);
+      setUploadedFile({ url, cloud_id });
+      if (typeof handleOtherFunctions === "function") {
+        handleOtherFunctions(url, cloud_id);
+      }
+    } catch (err) {
+      setToast({
+        msg: err.message,
+        type: "error",
+        status: true,
+      });
     }
-  } catch (err) {
+  } else {
     setToast({
-      msg: err.message,
-      type: "error",
       status: true,
+      msg: "File is too Big :(",
+      type: "info",
     });
   }
 };
@@ -201,6 +209,12 @@ const registerUser = async (
     setTimeout(() => {
       window.location.href = "/";
     }, 1000);
+  } else {
+    setToast({
+      msg: data.message,
+      type: "error",
+      status: true,
+    });
   }
 };
 

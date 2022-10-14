@@ -43,14 +43,14 @@ const Step3 = ({ details, setDetails }) => {
       />
       <label
         htmlFor="profile"
-        className="w-20 h-20 grid place-content-center cursor-pointer rounded-full bg-secondaryBackground"
+        className="min-w-[5rem] min-h-[5rem] w-full h-full grid place-content-center cursor-pointer rounded-full bg-secondaryBackground  text-paragraphDarkColor dark:text-paragraphLightColor"
       >
         {details.profile_photo.url ? (
           <Image
             src={details.profile_photo.url}
             alt=""
-            width={80}
-            height={80}
+            width={90}
+            height={90}
             className="rounded-full object-cover"
           />
         ) : fileUploading ? (

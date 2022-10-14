@@ -50,15 +50,19 @@ const newTag = ({ user }) => {
       <Head>
         <title>🚀 Hashnode | Clone 👋</title>
       </Head>
+
       <Header />
+
       {toast.status && (
         <Toast type={toast.type} msg={toast.msg} setToast={setToast} />
       )}
+
       <div className="dark:bg-mainBackground bg-grayWhite relative px-0 md:px-6">
         <div
           className="absolute top-0 left-0 w-full h-full"
           onClick={() => setSearchState(false)}
         ></div>
+
         <div
           onClick={() => setSearchState(false)}
           className={`container mx-auto newTag ${
@@ -70,6 +74,7 @@ const newTag = ({ user }) => {
           ) : (
             <>
               <SideBar />
+
               <div className="w-full relative z-40 border-x dark:border-borderDarkColor dark:bg-secondaryBackground">
                 <div className="py-16 text-center border-b border-borderLightColor dark:border-borderDarkColor">
                   <h1 className="text-4xl font-semibold mb-4 text-mainBackground dark:text-grayWhite">
@@ -79,6 +84,7 @@ const newTag = ({ user }) => {
                     Fill in the details for the new tag
                   </p>
                 </div>
+
                 <NewTagBody
                   tagDetails={tagDetails}
                   setTagDetails={setTagDetails}
@@ -106,6 +112,7 @@ const NewTagBody = ({ tagDetails, setTagDetails, toast, setToast }) => {
   const uploadTagLogo = async (e) => {
     const file = e.target.files[0];
     setFileUploading(true);
+
     const {
       data: {
         uploadImage: { url, cloud_id },
@@ -115,6 +122,7 @@ const NewTagBody = ({ tagDetails, setTagDetails, toast, setToast }) => {
         file,
       },
     });
+
     setFileUploading(false);
     setTagDetails({
       ...tagDetails,
@@ -140,11 +148,13 @@ const NewTagBody = ({ tagDetails, setTagDetails, toast, setToast }) => {
           cloud_id: "",
         },
       });
+
       setToast({
         status: true,
         type: "success",
         msg: "Tag created successfully",
       });
+
       setTimeout(() => {
         router.push("/explore");
       }, 500);
@@ -197,6 +207,7 @@ const NewTagBody = ({ tagDetails, setTagDetails, toast, setToast }) => {
           {fileUploading ? "Uploading..." : "Upload an image"}
         </label>
       </div>
+
       <div className="rounded-md overflow-hidden flex justify-start border border-borderLightColor dark:border-borderDarkColor my-6">
         <label
           htmlFor={"name"}
@@ -214,6 +225,7 @@ const NewTagBody = ({ tagDetails, setTagDetails, toast, setToast }) => {
           className={`px-4 py-2 flex-1 outline-none bg-transparent ${`text-md`}`}
         />
       </div>
+
       <div className="rounded-md overflow-hidden flex justify-start border border-borderLightColor dark:border-borderDarkColor my-6">
         <label
           htmlFor={"name"}
@@ -256,8 +268,10 @@ export async function getServerSideProps(ctx) {
         },
       },
     });
+
     user = data.user;
   }
+
   if (!user) {
     return {
       redirect: {

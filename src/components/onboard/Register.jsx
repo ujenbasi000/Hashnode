@@ -9,6 +9,7 @@ const Register = ({
   setStep,
   setValid,
   handleSubmit,
+  loading,
 }) => {
   return (
     <div className="shadows">
@@ -16,6 +17,7 @@ const Register = ({
         <h1 className="text-center text-3xl mb-6 font-semibold text-black dark:text-grayWhite">
           JOIN THE PLATFORM 👋
         </h1>
+
         <div className="w-11/12 mx-auto">
           <p className="text-lg text-center mb-2 text-paragraphLightColor dark:text-paragraphDarkColor">
             {step} out of 4 step Complete
@@ -25,6 +27,7 @@ const Register = ({
           </div>
         </div>
       </div>
+
       <div className="dark:bg-[#1e1e1e96] px-6 py-4">
         {step === 0 ? (
           <Step0
@@ -47,6 +50,7 @@ const Register = ({
         ) : step === 3 ? (
           <Step3 details={details} setDetails={setDetails} />
         ) : null}
+
         <div className="flex gap-3 justify-end mt-4">
           {step === 3 ? (
             <>
@@ -59,8 +63,9 @@ const Register = ({
               >
                 Prev
               </button>
+
               <button className="btn-write" onClick={handleSubmit}>
-                Submit
+                {loading ? "Loading..." : "Submit"}
               </button>
             </>
           ) : (
@@ -76,6 +81,7 @@ const Register = ({
                   Prev
                 </button>
               )}
+
               <button
                 disabled={!valid}
                 className={`btn-write ${

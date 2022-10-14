@@ -97,7 +97,6 @@ const mutation = {
     }
   },
 
-  // Follow
   followUser: async (_, { input }, ctx) => {
     const user = await isAuth(ctx);
 

@@ -46,9 +46,6 @@ const bookmarks = ({ user }) => {
 
   useEffect(() => {
     setSearchState(false);
-  }, []);
-
-  useEffect(() => {
     (async () => {
       setLoading(true);
       const bookmarks = JSON.parse(localStorage.getItem("bookmarks"));

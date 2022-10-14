@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @tailwind base;
 @tailwind components;
@@ -194,24 +193,6 @@ html::-webkit-scrollbar-thumb:hover {
   grid-row-gap: 0px;
 }
 
-.blog_content_container {
-  max-width: 1536px;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  z-index: 30;
-  display: grid;
-  grid-auto-flow: row;
-  gap: 1.5rem;
-}
-
-.blog_content_main {
-  grid-column: span 5/span 5;
-  grid-column-start: 3;
-}
-
 .blog_content_sidebar {
   margin-left: 2.5rem;
   grid-column: auto;
@@ -219,115 +200,131 @@ html::-webkit-scrollbar-thumb:hover {
   height: 100%;
 }
 
-body.dark .parsed_content code {
-  color: #dddddd;
-  background: #1f2937;
-}
-
-body.light .parsed_content code {
-  color: #1f2937;
-  background: #dddddd;
-  border: 1px solid rgb(181, 181, 181);
-}
-body.light .parsed_content pre code {
-  border: none;
-  color: #dddddd;
-  background: #1f2937;
-}
-
-.parsed_content pre {
-  /* Track */
-  /* Handle */
-}
-.parsed_content pre code::-webkit-scrollbar {
-  height: 5px;
-}
-.parsed_content pre code {
-  padding-bottom: 7px;
-}
-.parsed_content pre code::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-.parsed_content pre code::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 15px;
-}
-
-.parsed_content {
-  line-height: 1.8;
-  font-size: 1.25rem;
-}
-.parsed_content * {
-  font-family: "Inter", sans-serif !important;
-  line-height: 1.8;
-}
-.parsed_content p {
-  font-size: 1.25rem;
-  margin-top: 1.2em;
-  margin-bottom: 1.2em;
-}
 .parsed_content h1 {
-  font-size: 2em;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  line-height: 1.2;
-  font-weight: 700;
-}
-.parsed_content h1 * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  line-height: 1.2;
+  font-weight: 600;
+  font-size: 2rem;
+  margin: 1.6em 0;
 }
 .parsed_content h2 {
-  font-size: 1.8em;
-  margin: 2rem 0;
-  line-height: 1.1111111;
   font-weight: 600;
-}
-.parsed_content h2 * {
-  line-height: 1.1111111;
-  font-weight: 600;
+  font-size: 2rem;
+  margin: 1.3em 0;
 }
 .parsed_content h3 {
-  font-size: 1.5em;
-  margin: 1.5rem 0;
-  line-height: 1.2;
-  margin-top: 1em;
+  font-weight: 600;
+  font-size: 2rem;
+  margin: 1em 0;
+}
+.parsed_content p {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  margin: 1em 0;
+}
+.parsed_content img {
+  width: 100%;
+}
+.parsed_content pre {
+  background: #1f2937;
+}
+.parsed_content pre code {
+  font-family: "Times New Roman", Times, serif;
+  padding: 0.5em;
+  border: 1px solid #fff;
+  border-radius: 0.5em;
+}
+.parsed_content blockquote {
+  padding: 0 0 0 1em;
+  border-left: 5px solid gray;
+  font-size: 1.2rem;
+}
+.parsed_content span {
+  font-size: 1rem;
+}
+.parsed_content strong,
+.parsed_content em,
+.parsed_content b {
   font-weight: 700;
 }
-.parsed_content h3 * {
-  line-height: 1.2;
-  font-weight: 500;
+.parsed_content a {
+  text-decoration: underline;
+  color: #3466f6;
+  transition: 0.5s ease;
 }
-.parsed_content h4 {
-  font-size: 1.2em;
-  margin: 2em 0 0 0;
-  color: #fafafa;
-  font-weight: 300;
-}
-.parsed_content h4 * {
-  margin: 2em 0 0 0;
-  font-weight: 300;
+.parsed_content a:hover {
+  opacity: 0.8;
 }
 .parsed_content ul {
-  margin-top: 1.2em;
-  margin-bottom: 1.2em;
-  margin: 0px;
-  padding: 0px;
+  margin: 2em;
 }
 .parsed_content ul li {
-  list-style: disc;
-  padding-left: 1em;
-  margin-top: 0.6em;
-  margin-bottom: 0.6em;
+  list-style-type: initial;
+  margin: 0 0 0 1em;
+  font-size: 1.2rem;
+  margin: 1em 0;
+  line-height: 1.8em;
 }
-.parsed_content li {
-  margin-left: 1em;
-  margin-top: 0.6em;
-  margin-bottom: 0.6em;
-  font-size: 0.85em;
+.parsed_content ol {
+  margin: 2em;
+}
+.parsed_content ol li {
+  list-style-type: initial;
+  margin: 0 0 0 1em;
+  font-size: 1.2rem;
+  margin: 1em 0;
+  line-height: 1.8em;
 }
 .parsed_content code {
+  border: 1px solid #2b3240;
+  padding: 0.25em 0.5em;
+  border-radius: 0.5em;
+  background: #2b3240;
+  line-height: 1.8em;
+}
+
+body.dark .btn-tab.active {
+  background: #374151;
+  border: 1px solid rgba(255, 255, 255, 0.1882352941);
+}
+body.dark .bookmark_child {
+  border-bottom: 1px solid #374151;
+}
+body.dark .shadows {
+  box-shadow: 0 0 2px 20px rgba(34, 34, 34, 0.1607843137);
+}
+body.dark .mde-header,
+body.dark .mde-textarea-wrapper {
+  background: #111827 !important;
+}
+body.dark .mde-header button,
+body.dark .mde-textarea-wrapper button {
+  color: #fff;
+  border-radius: 5px !important;
+  padding: 0 15px;
+}
+body.dark .mde-header svg path,
+body.dark .mde-textarea-wrapper svg path {
+  fill: #fff;
+}
+body.dark .mde-text,
+body.dark .mde-preview-content {
+  background: transparent;
+  border: 1px solid #374151 !important;
+  color: #fafafa;
+  min-height: 750px;
+  border-radius: 7px !important;
+  margin-top: 15px;
+  font-family: "Inter";
+}
+body.dark .mde-text h1,
+body.dark .mde-text h2,
+body.dark .mde-text h3,
+body.dark .mde-preview-content h1,
+body.dark .mde-preview-content h2,
+body.dark .mde-preview-content h3 {
+  border: none !important;
+}
+body.dark .mde-text code,
+body.dark .mde-preview-content code {
   color: #dddddd;
   background: #1f2937;
   font-size: 1em;
@@ -336,46 +333,117 @@ body.light .parsed_content pre code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   padding: 0.1rem 0.45rem;
 }
-.parsed_content a {
-  text-decoration: underline;
-  font-weight: 500;
-  cursor: pointer;
-  font-size: 0.95em;
-  transition: color 0.2s ease;
+body.dark .parsed_content h1 {
+  color: #fff;
 }
-.parsed_content a:hover {
-  color: #3466f6;
+body.dark .parsed_content h2 {
+  color: #fff;
 }
-.parsed_content ol {
-  margin-top: 1.2em;
-  margin-bottom: 1.2em;
-  margin: 0px;
-  padding: 0px;
+body.dark .parsed_content h3 {
+  color: #fff;
 }
-.parsed_content blockquote {
-  font-weight: 500;
-  font-style: italic;
-  border-left-width: 0.25rem;
-  border-left-color: #e5e7eb;
-  quotes: '"“""”""‘""’"';
-  margin-top: 1.6em;
-  margin-bottom: 1.6em;
-  padding-left: 1.0666667em;
-  font-size: 0.95em;
+body.dark .parsed_content p {
+  color: #fff;
 }
-.parsed_content pre {
-  font-size: 0.9em;
-  line-height: 1.7777778;
-  border-radius: 0.5rem;
-  padding: 1.8em 1em;
-  background-color: #1f2937;
-  overflow: hidden;
+body.dark .parsed_content blockquote {
+  color: #fff;
 }
-.parsed_content pre code {
-  overflow-x: auto;
-  font-family: "Consolas" !important;
+body.dark .parsed_content ul li {
+  color: #fff;
+}
+body.dark .parsed_content ol li {
+  color: #fff;
+}
+body.dark .parsed_content code {
+  border: 1px solid #2b3240;
+  padding: 0.25em 0.5em;
+  border-radius: 0.5em;
+  background: #2b3240;
+  line-height: 1.8em;
+}
+
+body.light .bookmark_child {
+  border-bottom: 1px solid #dcdcdc;
+}
+body.light .shadows {
+  box-shadow: 0 0 6px 14px rgba(203, 203, 203, 0.3019607843);
+}
+body.light .mde-header button,
+body.light .mde-textarea-wrapper button {
+  color: #000;
+  border-radius: 5px !important;
+  padding: 0 15px;
+}
+body.light .mde-header svg path,
+body.light .mde-textarea-wrapper svg path {
+  fill: #000;
+}
+body.light .mde-header textarea,
+body.light .mde-textarea-wrapper textarea {
+  color: #000;
+}
+body.light .mde-text,
+body.light .mde-preview-content {
+  background: transparent;
+  border: 1px solid #a7a7a7 !important;
+  color: #222222;
+  min-height: 750px;
+  border-radius: 7px !important;
+  margin-top: 15px;
+  font-family: "Inter";
+}
+body.light .mde-text h1,
+body.light .mde-text h2,
+body.light .mde-text h3,
+body.light .mde-preview-content h1,
+body.light .mde-preview-content h2,
+body.light .mde-preview-content h3 {
+  border: none !important;
+}
+body.light .mde-text code,
+body.light .mde-preview-content code {
+  color: #303030;
+  background: #cdcdcd;
   font-size: 1em;
-  border: none;
+  border-radius: 0.25rem;
+  font-weight: 400;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  padding: 0.1rem 0.45rem;
+}
+body.light .parsed_content h1 {
+  color: #222;
+}
+body.light .parsed_content h2 {
+  color: #222;
+}
+body.light .parsed_content h3 {
+  color: #222;
+}
+body.light .parsed_content p {
+  color: #222;
+}
+body.light .parsed_content pre {
+  background: #1f2937;
+}
+body.light .parsed_content pre code {
+  font-family: "Times New Roman", Times, serif;
+  padding: 0.5em;
+  border: 1px solid #fff;
+  border-radius: 0.5em;
+}
+body.light .parsed_content blockquote {
+  color: #222;
+}
+body.light .parsed_content ul li {
+  color: #222;
+}
+body.light .parsed_content ol li {
+  color: #222;
+}
+body.light .parsed_content code {
+  color: #222;
+  background: #ddd;
+  border-color: #bfbfbf;
 }
 
 .toast {
@@ -427,17 +495,6 @@ body.light .parsed_content pre code {
   background-color: rgb(56, 139, 142);
 }
 
-html.light a,
-html.light strong {
-  color: rgb(39, 39, 39);
-}
-html.light blockquote {
-  border-left-color: #545454;
-}
-html.light em {
-  color: #303030;
-}
-
 .copy {
   position: absolute;
   top: 5px;
@@ -476,11 +533,6 @@ html.light em {
   border: 1px solid #ccc;
 }
 
-body.dark .btn-tab.active {
-  background: #374151;
-  border: 1px solid rgba(255, 255, 255, 0.1882352941);
-}
-
 input#email:hover,
 input#name:hover,
 input#password:hover input#username:hover {
@@ -513,14 +565,6 @@ input#password:hover input#username:hover {
 
 .width-4 {
   width: 100%;
-}
-
-.bookmark_child {
-  border-bottom: 1px solid #dcdcdc;
-}
-
-body.dark .bookmark_child {
-  border-bottom: 1px solid #374151;
 }
 
 .bookmark_child:last-child {
@@ -579,46 +623,8 @@ code {
   word-break: break-word;
 }
 
-.shadows {
-  box-shadow: 0 0 6px 14px rgba(203, 203, 203, 0.3019607843);
-}
-
-body.dark .shadows {
-  box-shadow: 0 0 2px 20px rgba(34, 34, 34, 0.1607843137);
-}
-
 .userArticle:last-child {
   border: none;
-}
-
-body.light .mde-header button,
-body.light .mde-textarea-wrapper button {
-  color: #000;
-  border-radius: 5px !important;
-  padding: 0 15px;
-}
-body.light .mde-header svg path,
-body.light .mde-textarea-wrapper svg path {
-  fill: #000;
-}
-body.light .mde-header textarea,
-body.light .mde-textarea-wrapper textarea {
-  color: #000;
-}
-
-body.dark .mde-header,
-body.dark .mde-textarea-wrapper {
-  background: #111827 !important;
-}
-body.dark .mde-header button,
-body.dark .mde-textarea-wrapper button {
-  color: #fff;
-  border-radius: 5px !important;
-  padding: 0 15px;
-}
-body.dark .mde-header svg path,
-body.dark .mde-textarea-wrapper svg path {
-  fill: #fff;
 }
 
 button.selected {
@@ -640,62 +646,4 @@ button.selected {
   width: 100%;
   border-top: 1px solid #374151 !important;
   border-bottom: 1px solid #374151 !important;
-}
-
-body.dark .mde-text,
-body.dark .mde-preview-content {
-  background: transparent;
-  border: 1px solid #374151 !important;
-  color: #fafafa;
-  min-height: 750px;
-  border-radius: 7px !important;
-  margin-top: 15px;
-  font-family: "Inter";
-}
-body.dark .mde-text h1,
-body.dark .mde-text h2,
-body.dark .mde-text h3,
-body.dark .mde-preview-content h1,
-body.dark .mde-preview-content h2,
-body.dark .mde-preview-content h3 {
-  border: none !important;
-}
-body.dark .mde-text code,
-body.dark .mde-preview-content code {
-  color: #dddddd;
-  background: #1f2937;
-  font-size: 1em;
-  border-radius: 0.25rem;
-  font-weight: 400;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  padding: 0.1rem 0.45rem;
-}
-
-body.light .mde-text,
-body.light .mde-preview-content {
-  background: transparent;
-  border: 1px solid #a7a7a7 !important;
-  color: #222222;
-  min-height: 750px;
-  border-radius: 7px !important;
-  margin-top: 15px;
-  font-family: "Inter";
-}
-body.light .mde-text h1,
-body.light .mde-text h2,
-body.light .mde-text h3,
-body.light .mde-preview-content h1,
-body.light .mde-preview-content h2,
-body.light .mde-preview-content h3 {
-  border: none !important;
-}
-body.light .mde-text code,
-body.light .mde-preview-content code {
-  color: #303030;
-  background: #cdcdcd;
-  font-size: 1em;
-  border-radius: 0.25rem;
-  font-weight: 400;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  padding: 0.1rem 0.45rem;
 }/*# sourceMappingURL=globals.css.map */

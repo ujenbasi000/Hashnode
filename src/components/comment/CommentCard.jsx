@@ -53,7 +53,7 @@ const CommentCard = ({ details }) => {
           {date}
         </p>
       </header>
-      <main className="text-base leading-snug py-6 px-14 text-paragraphLightColor dark:text-paragraphDarkColor">
+      <main className="text-base leading-snug py-6 px-0 md:px-14 text-paragraphLightColor dark:text-paragraphDarkColor">
         {parse(converter.makeHtml(details?.comment))}
       </main>
     </div>
